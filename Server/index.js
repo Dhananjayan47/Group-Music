@@ -12,10 +12,6 @@ import roomRoutes from './routes/roomRouters.js'
 import userRoutes from './routes/userRouters.js'
 import setupSocket from './socket.js';
 
-console.log("KEY:", process.env.SENDGRID_API_KEY?.slice(0, 10));
-console.log("SENDER:", process.env.SENDER_ID);
-
-
 const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -25,8 +21,8 @@ app.use(cors({
     origin:process.env.FRONTEND_URL,
     credentials:true,
 }));
-
 app.use(cookieParser());
+
 
 // --- Serve uploaded files statically ---
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -41,7 +37,7 @@ const httpServer=http.createServer(app);
 const io=new Server (httpServer,{
     cors:{
         origin:process.env.FRONTEND_URL,
-        methods:['GET','POST']
+        methods:['GET','POST'],
     },
 });
 
